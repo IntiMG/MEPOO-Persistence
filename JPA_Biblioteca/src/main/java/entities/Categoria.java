@@ -8,7 +8,7 @@ import lombok.Setter;
 @Table(name = "categorias")
 @Setter @Getter
 @NamedQueries({
-        @NamedQuery(name = "categorias.All", query = "select a from Categoria c")
+        @NamedQuery(name = "categorias.All", query = "select c from Categoria c")
 })
 public class Categoria {
     @Id
