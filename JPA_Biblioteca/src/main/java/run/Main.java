@@ -1,6 +1,8 @@
 package run;
 
 import entities.Autor;
+import entities.Categoria;
+import entities.Libro;
 import services.interfaces.ICRUD;
 import services.dao.MyDao;
 
@@ -40,6 +42,68 @@ public class Main {
         dao.delete(a);
     }
 
+    public static void insertarCategoria() {
+        Categoria c = new Categoria();
+        c.setNombre("Novela");
+        dao.insert(c);
+
+        Categoria c2 = new Categoria();
+        c.setNombre("Ficcion");
+        dao.insert(c2);
+    }
+
+    public static void listarCategorias() {
+        System.out.println("Registro Almacenados:");
+        List<Categoria> categorias = dao.getAll("categorias.All", Categoria.class);
+        categorias.forEach(categoria -> System.out.println(categoria.getNombre()));
+    }
+
+    public static void editarCategoria() {
+        Categoria c = new Categoria();
+        c = dao.findById(1, Categoria.class);
+        c.setNombre("Romance");
+        dao.update(c);
+    }
+
+    public static void eliminarCategoria() {
+        Categoria c = new Categoria();
+        c = dao.findById(2, Categoria.class);
+        dao.delete(c);
+    }
+
+    public static void insertarLibro() {
+        Libro l = new Libro();
+        l.setTitulo("Las Siete Moralejas del Perro");
+        l.setAutor(dao.findById(1, Autor.class));
+        l.setCategoria(dao.findById(1, Categoria.class));
+        dao.insert(l);
+
+        Libro l2 = new Libro();
+        l2.setTitulo("El perro y Cangrejo");
+        l2.setAutor(dao.findById(2, Autor.class));
+        l2.setCategoria(dao.findById(2, Categoria.class));
+        dao.insert(l2);
+    }
+
+    public static void listarLibros() {
+        System.out.println("Registro Almacenados:");
+        List<Libro> libros = dao.getAll("libros.All", Libro.class);
+        libros.forEach(libro -> System.out.println(libro.getTitulo()));
+    }
+
+    public static void editarLibro() {
+        Libro l = new Libro();
+        l = dao.findById(1, Libro.class);
+        l.setTitulo("Guia de POO");
+        dao.update(l);
+    }
+
+    public static void eliminarLibro() {
+        Libro l = new Libro();
+        l = dao.findById(2, Libro.class);
+        dao.delete(l);
+    }
+
     public static void main(String[] args) {
         insertarAutor();
         listarAutores();
@@ -47,5 +111,19 @@ public class Main {
         listarAutores();
         eliminarAutor();
         listarAutores();
+
+        insertarCategoria();
+        listarCategorias();
+        editarCategoria();
+        listarCategorias();
+        eliminarCategoria();
+        listarCategorias();
+
+        insertarLibro();
+        listarLibros();
+        editarLibro();
+        listarLibros();
+        eliminarLibro();
+        listarLibros();
     }
 }
